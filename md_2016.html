@@ -13,12 +13,19 @@ async function init() {
 
 <body onload='init()'>
 <p>Medical Doctors in 2016</p>
-<svg width=300 height=300></svg>
+<svg width="300" height="500" class="chart"></svg>
 <script>
 async function init() {
     var data = await d3.csv("https://haroon728.github.io/md_2016.csv");
     console.log(data);
     alert('we got data!');
+    d3.select(".chart")
+      .selectAll("rect")
+      .data(data)
+      .attr("width, 19")
+      .attr("height", function(d) {return 10*d["md"]; })
+      .attr("x", function(d,i) { return 20*i; })
+      .attr("y", function(d) { return 420 - 10*d["md"]; });
 }
 </script>
 </body>
