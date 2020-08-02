@@ -16,7 +16,7 @@ async function init() {
     var data = await d3.csv("https://haroon728.github.io/md_2016.csv");
     console.log(data);
     var y = d3.scaleLinear()
-        .domain([0, 60])
+        .domain([0, 100])
         .range([500, 0]);
 
     var x = d3.scaleBand()
@@ -31,9 +31,9 @@ async function init() {
       .enter()
       .append("rect")
       .attr("width", 19)
-      .attr("height", function(d) { return 10*d["md"]; })
+      .attr("height", function(d) { return d["md"]; })
       .attr("x", function(d,i) { return 20*i; })
-      .attr("y", function(d) { return 500 - 10*d["md"]; });
+      .attr("y", function(d) { return 500 - d["md"]; });
 
     d3.select(".chart")
       .append("g")
