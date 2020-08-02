@@ -22,6 +22,8 @@ async function init() {
     d3.select(".chart")
       .selectAll("rect")
       .data(data)
+      .enter()
+      .append("rect")
       .attr("width", 19)
       .attr("height", function(d) { return 10*d["md"]; })
       .attr("x", function(d,i) { return 20*i; })
