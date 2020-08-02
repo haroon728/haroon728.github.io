@@ -1,6 +1,14 @@
 <html>
 <script src='https://d3js.org/d3.v5.min.js'></script>
 
+<script>
+async function init() {
+    var data = await d3.csv("https://haroon728.github.io/md_2016.csv");
+    console.log(data);
+    alert('we got data!');
+}
+</script>
+
 <style> circle {fill: lightblue; stroke: black;} </style>
 
 <body onload='init()'>
