@@ -1,7 +1,16 @@
 <html>
 <script src='https://d3js.org/d3.v5.min.js'></script>
 
-<style> circle {fill: lightblue; stroke: black;} </style>
+<style> 
+circle {fill: lightblue; stroke: black;} 
+#tooltip {
+    opacity: 0;
+    position: absolute;
+    text-align: center;
+    width: 60px; height:40px;
+    border: 0px; 
+}
+</style>
 
 <body onload='init()'>
 <p>Medical Doctors in 2016</p>
@@ -11,6 +20,8 @@
 <a href="https://haroon728.github.io/md_2018.html">scene 3</a>
 
 <svg width="600" height="600" class="chart"></svg>
+<div id="tooltip"></div>
+
 <script>
 async function init() {
     var data = await d3.csv("https://haroon728.github.io/md_2016.csv");
@@ -38,6 +49,13 @@ async function init() {
       .attr("height", function(d) { return h(d["md"]); })
       .attr("x", function(d,i) { return 20*i; })
       .attr("y", function(d) { return y(d["md"]); });
+      .on("mouseover", function(d,i) {
+          tooltip.style("opacity", 1)
+                 .style("left", (d3.event.pageX)+"px")
+                 .style("top", (d3.event.pageY)+"px")
+                 .html(d["country"] + ":" + d["md"]) 
+      })
+      .on("mouseout", function() {tooltip.style("opacity", 0);  });
 
     d3.select(".chart")
       .append("g")
