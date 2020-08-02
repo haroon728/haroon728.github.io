@@ -10,12 +10,22 @@
 <a href="https://haroon728.github.io/md_2017.html">scene 2</a>
 <a href="https://haroon728.github.io/md_2018.html">scene 3</a>
 
-<svg width="300" height="500" class="chart"></svg>
+<svg width="600" height="600" class="chart"></svg>
 <script>
 async function init() {
     var data = await d3.csv("https://haroon728.github.io/md_2016.csv");
     console.log(data);
+    var y = d3.scaleLinear()
+        .domain([0, 20])
+        .range([500, 0]);
+
+    var x = d3.scaleBand()
+        .domain(["a", "b", "c"])
+        .range([0, 500])
+
     d3.select(".chart")
+      .append("g")
+      .attr("transform", "translate(50,50)")
       .selectAll("rect")
       .data(data)
       .enter()
@@ -24,6 +34,16 @@ async function init() {
       .attr("height", function(d) { return 10*d["md"]; })
       .attr("x", function(d,i) { return 20*i; })
       .attr("y", function(d) { return 420 - 10*d["md"]; });
+
+    d3.select(".chart")
+      .append("g")
+      .attr("transform", "translate(50,50)")
+      .call(d3.axisLeft(y));
+
+    d3.select(".chart")
+      .append("g")
+      .attr("transform", "translate(50,550)")
+      .call(d3.axisBottom(x));
 }
 </script>
 </body>
