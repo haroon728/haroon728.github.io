@@ -48,7 +48,7 @@ async function init() {
       .attr("width", 19)
       .attr("height", function(d) { return h(d["md"]); })
       .attr("x", function(d,i) { return 20*i; })
-      .attr("y", function(d) { return y(d["md"]); });
+      .attr("y", function(d) { return y(d["md"]); })
       .on("mouseover", function(d,i) {
           tooltip.style("opacity", 1)
                  .style("left", (d3.event.pageX)+"px")
