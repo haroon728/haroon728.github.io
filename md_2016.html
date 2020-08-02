@@ -7,6 +7,11 @@
 <p>Medical Doctors in 2016</p>
 <svg width=300 height=300></svg>
 <script>
+async function init() {
+    var data = await d3.csv("https://haroon728.github.io/md_2016.csv");
+    console.log(data);
+    alert('we got data!');
+}
 </script>
 </body>
 
