@@ -33,7 +33,7 @@ async function init() {
       .attr("width", 19)
       .attr("height", function(d) { return 10*d["md"]; })
       .attr("x", function(d,i) { return 20*i; })
-      .attr("y", function(d) { return 420 - 10*d["md"]; });
+      .attr("y", function(d) { return 500 - 10*d["md"]; });
 
     d3.select(".chart")
       .append("g")
