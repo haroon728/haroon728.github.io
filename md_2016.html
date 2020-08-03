@@ -30,9 +30,13 @@ async function init() {
     var h = d3.scaleLinear()
         .domain([0, 85])
         .range([0, 500]);
+    xbands = [];
+    for(i = 0; i < data.length; i++) {
+        xbands.push(data[i]["country"]);
+    }
 
     var x = d3.scaleBand()
-        .domain(["a", "b", "c"])
+        .domain(xbands)
         .range([0, 500]);
 
     var tooltip = d3.select("#tooltip");
