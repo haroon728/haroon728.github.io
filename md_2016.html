@@ -50,7 +50,7 @@ async function init() {
       .append("rect")
       .attr("width", 19)
       .attr("height", function(d) { return h(d["md"]); })
-      .attr("x", function(d,i) { return x(d["country"]); })
+      .attr("x", function(d,i) { return 20*i; })
       .attr("y", function(d) { return y(d["md"]); })
       .on("mouseover", function(d,i) {
           tooltip.style("opacity", 1)
