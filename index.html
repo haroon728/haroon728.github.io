@@ -1,12 +1,69 @@
 <html>
 <script src='https://d3js.org/d3.v5.min.js'></script>
 
-<style> circle {fill: lightblue; stroke: black;} </style>
+<style> 
+.chart rect {fill: steelblue; }
+#tooltip {
+    opacity: 0;
+    width: 60px; height:40px;
+    border: 0px; 
+}
+</style>
 
 <body onload='init()'>
-<p> Hello, I'm haroon!</p>
-<svg width=300 height=300></svg>
+<p>Medical Doctors in 2016</p>
+<p>This plot shows medical doctors per 10000 population by country.
+The top ten shows mostly European countries. Hover over a bar to see more information.
+Click on the scene links below to advance to the next scene.
+</p> 
+<div id="tooltip"></div>
+<a href="https://haroon728.github.io/md_2016.html">scene 1</a>
+<a href="https://haroon728.github.io/md_2017.html">scene 2</a>
+<a href="https://haroon728.github.io/md_2018.html">scene 3</a>
+
+<svg width="600" height="600" class="chart"></svg>
+
 <script>
+async function init() {
+    var data = await d3.csv("https://haroon728.github.io/md_all_2016_sorted.csv");
+    console.log(data);
+    var y = d3.scaleLinear()
+        .domain([0, 85])
+        .range([500, 0]);
+
+    var h = d3.scaleLinear()
+        .domain([0, 85])
+        .range([0, 500]);
+
+    var x = d3.scaleBand()
+        .domain(["a", "b", "c"])
+        .range([0, 500]);
+
+    var tooltip = d3.select("#tooltip");
+
+    d3.select(".chart")
+      .append("g")
+      .attr("transform", "translate(50,50)")
+      .selectAll("rect")
+      .data(data)
+      .enter()
+      .append("rect")
+      .attr("width", 19)
+      .attr("height", function(d) { return h(d["md"]); })
+      .attr("x", function(d,i) { return 20*i; })
+      .attr("y", function(d) { return y(d["md"]); })
+      .on("mouseover", function(d,i) {
+          tooltip.style("opacity", 1)
+                 .html(d["country"] + ":" + d["md"]) 
+      })
+      .on("mouseout", function() {tooltip.style("opacity", 0);  });
+
+    d3.select(".chart")
+      .append("g")
+      .attr("transform", "translate(50,50)")
+      .call(d3.axisLeft(y));
+
+}
 </script>
 </body>
 
